@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/autoScroll/" style="font-size: 10px;">autoScroll</a> <a href="/tags/content/" style="font-size: 10px;">content</a> <a href="/tags/helloWorld/" style="font-size: 10px;">helloWorld</a> <a href="/tags/meta标签常用属性/" style="font-size: 10px;">meta标签常用属性</a> <a href="/tags/垂直居中table-cell/" style="font-size: 10px;">垂直居中table-cell</a> <a href="/tags/精度/" style="font-size: 10px;">精度</a>
+						<a href="/tags/autoScroll/" style="font-size: 10px;">autoScroll</a> <a href="/tags/content/" style="font-size: 10px;">content</a> <a href="/tags/helloWorld/" style="font-size: 10px;">helloWorld</a> <a href="/tags/meta标签常用属性/" style="font-size: 10px;">meta标签常用属性</a> <a href="/tags/垂直居中table-cell/" style="font-size: 10px;">垂直居中table-cell</a> <a href="/tags/无缝滚动javascript/" style="font-size: 10px;">无缝滚动javascript</a> <a href="/tags/精度/" style="font-size: 10px;">精度</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,73 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-无缝滚动效果" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/15/无缝滚动效果/" class="article-date">
+  	<time datetime="2015-11-15T01:53:44.000Z" itemprop="datePublished">2015-11-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/15/无缝滚动效果/">
+        无缝滚动效果
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="基于jQuery的无缝滚动效果"><a href="#基于jQuery的无缝滚动效果" class="headerlink" title="基于jQuery的无缝滚动效果"></a>基于jQuery的无缝滚动效果</h1><p>在开发中遇到过很多次，UI设计有关于该效果的实现，都万变不离其宗，这里，我就总结了无缝滚动效果的实现。</p>
+<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;div class=<span class="string">"banner"</span>&gt;</div><div class="line">    &lt;ul class=<span class="string">"banner-img"</span>&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/1.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/2.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/3.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/4.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/5.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;</div><div class="line">            &lt;img src=<span class="string">"image/6.jpg"</span>&gt;&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">    &lt;ul class=<span class="string">"banner-circle"</span>&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.banner &#123; width: 520px; height: 280px; position: relative; overflow: hidden; margin-bottom: 0; margin-left: auto; margin-right: auto; &#125;</div><div class="line">.banner-img &#123; font-size: 0; *word-spacing: -1px; /* IE6、7 */ letter-spacing: -3px; position: relative; &#125;</div><div class="line">.banner-img li &#123; display: inline-block; *display: inline; *zoom: 1; /* IE6、7 */ vertical-align: top; letter-spacing: normal; word-spacing: normal; font-size: 12px; &#125;</div><div class="line"></div><div class="line">.banner-circle &#123; position: absolute; left: 50%; bottom: 15px; height: 13px; text-align: center; font-size: 0; border-radius: 10px;&#125;</div><div class="line">.banner-circle li &#123; border-radius: 10px; margin: 2px; display: inline-block; display: -moz-inline-stack; vertical-align: middle; zoom: 1; &#125;</div><div class="line">.banner-circle li a &#123; display: block; padding-top: 9px; width: 9px; height: 0; border-radius: 50%; background: <span class="comment">#B7B7B7; overflow: hidden; &#125;</span></div><div class="line">.banner-circle .selected a &#123; background: <span class="comment">#F40; &#125;</span></div></pre></td></tr></table></figure>
+<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">    var <span class="variable">$banner</span> = $(<span class="string">'.banner'</span>);</div><div class="line">    var <span class="variable">$banner_ul</span> = $(<span class="string">'.banner-img'</span>);</div><div class="line">    var v_width = <span class="variable">$banner</span>.width();</div><div class="line">    var page = 1;</div><div class="line">    var timer = null;</div><div class="line">    var btnClass = null;</div><div class="line">	</div><div class="line">    var page_count = <span class="variable">$banner_ul</span>.find(<span class="string">'li'</span>).length;//把这个值赋给小圆点的个数</div><div class="line">    var banner_cir = <span class="string">"&lt;li class='selected' href='#'&gt;&lt;a&gt;&lt;/a&gt;&lt;/li&gt;"</span>;</div><div class="line">    <span class="keyword">for</span> (var i = 1; i &lt; page_count; i++) &#123;</div><div class="line">        //动态添加小圆点</div><div class="line">        banner_cir += <span class="string">"&lt;li&gt;&lt;a href='#'&gt;&lt;/a&gt;&lt;/li&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">    $(<span class="string">'.banner-circle'</span>).append(banner_cir);</div><div class="line"></div><div class="line">    var cirLeft = $(<span class="string">'.banner-circle'</span>).width() * (-0.5);</div><div class="line">    $(<span class="string">'.banner-circle'</span>).css(&#123; <span class="string">'marginLeft'</span>: cirLeft &#125;);</div><div class="line"></div><div class="line">    <span class="variable">$banner_ul</span>.width(page_count * v_width);</div><div class="line"></div><div class="line">    <span class="keyword">function</span> move(obj, classname) &#123;</div><div class="line">        //手动及自动播放</div><div class="line">        <span class="keyword">if</span> (!<span class="variable">$banner_ul</span>.is(<span class="string">':animated'</span>)) &#123;</div><div class="line">            <span class="keyword">if</span> (classname == <span class="string">'prevBtn'</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (page == 1) &#123;</div><div class="line">                    <span class="variable">$banner_ul</span>.animate(&#123; left: -v_width * (page_count - 1) &#125;);</div><div class="line">                    page = page_count;</div><div class="line">                    cirMove();</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="variable">$banner_ul</span>.animate(&#123; left: <span class="string">'+='</span> + v_width &#125;, <span class="string">"slow"</span>);</div><div class="line">                    page--;</div><div class="line">                    cirMove();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> (page == page_count) &#123;</div><div class="line">                    <span class="variable">$banner_ul</span>.animate(&#123; left: 0 &#125;);</div><div class="line">                    page = 1;</div><div class="line">                    cirMove();</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="variable">$banner_ul</span>.animate(&#123; left: <span class="string">'-='</span> + v_width &#125;, <span class="string">"slow"</span>);</div><div class="line">                    page++;</div><div class="line">                    cirMove();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">function</span> <span class="function"><span class="title">cirMove</span></span>() &#123;</div><div class="line">        //检测page的值，使当前的page与selected的小圆点一致</div><div class="line">        $(<span class="string">'.banner-circle li'</span>).eq(page - 1).addClass(<span class="string">'selected'</span>)</div><div class="line">        .siblings().removeClass(<span class="string">'selected'</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="variable">$banner</span>.mouseover(<span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">       // <span class="variable">$btn</span>.css(&#123; <span class="string">'display'</span>: <span class="string">'block'</span> &#125;);</div><div class="line">        clearInterval(timer);</div><div class="line">    &#125;).mouseout(<span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">       // <span class="variable">$btn</span>.css(&#123; <span class="string">'display'</span>: <span class="string">'none'</span> &#125;);</div><div class="line">        clearInterval(timer);</div><div class="line">        timer = <span class="built_in">set</span>Interval(move, 3000);</div><div class="line">    &#125;).trigger(<span class="string">"mouseout"</span>);//激活自动播放</div><div class="line">    $(<span class="string">'.banner-circle li'</span>).live(<span class="string">'click'</span>, <span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">        var index = $(<span class="string">'.banner-circle li'</span>).index(this);</div><div class="line">        <span class="variable">$banner_ul</span>.animate(&#123; left: -v_width * index &#125;, <span class="string">'slow'</span>);</div><div class="line">        page = index + 1;</div><div class="line">        cirMove();</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>当然除了上面的js，还需要引入最基本的jQuery.js，一看就$符号就毫无疑问的事情。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无缝滚动javascript/">无缝滚动javascript</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/js/">js</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-元素垂直居中问题" class="article article-type-post" itemscope itemprop="blogPost">
   
